@@ -30,7 +30,7 @@ export default function Perad() {
     <main>
       <h1>Perad</h1>
 
-      {message ? <p>{message}</p> : undefined}
+      {message && <p>{message}</p>}
 
       <table border="1">
         <thead>
