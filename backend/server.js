@@ -1,6 +1,7 @@
 import "dotenv/config";
 import express from "express";
 import peradRoutes from "./routes/perad.routes.js";
+import hranaRoutes from "./routes/hrana.routes.js";
 import cors from "cors";
 
 const app = express();
@@ -8,6 +9,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use("/api/perad", peradRoutes);
+app.use("/api/hrana", hranaRoutes);
 
 app.get("/", (req, res) => {
   res.json({

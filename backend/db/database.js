@@ -11,6 +11,8 @@ const pool = mysql.createPool({
   queueLimit: 0,
 });
 
+//PERAD
+
 export const allPerad = async () => {
   const [rows] = await pool.query(
     "SELECT * FROM perad"
@@ -67,6 +69,91 @@ export const updatePerad = async (
 export const deletePerad = async (id) => {
   const [result] = await pool.query(
     "DELETE FROM perad WHERE id = ?",
+    [id]
+  );
+
+  return result;
+};
+
+//HRANA
+
+export const allHrana = async () => {
+  const [rows] = await pool.query(
+    "SELECT * FROM hrana"
+  );
+
+  return rows;
+};
+
+export const oneHrana = async (id) => {
+  const [rows] = await pool.query(
+    "SELECT * FROM hrana WHERE id = ?",
+    [id]
+  );
+
+  return rows;
+};
+
+export const createHrana = async (
+  naziv,
+  tip,
+  kolicina,
+  cena,
+  rok_uporabe,
+  korisnik_id
+) => {
+  const [result] = await pool.query(
+    `INSERT INTO hrana
+    (naziv, tip, kolicina, cena, rok_uporabe, korisnik_id)
+    VALUES (?, ?, ?, ?, ?, ?)`,
+    [
+      naziv,
+      tip,
+      kolicina,
+      cena,
+      rok_uporabe,
+      korisnik_id,
+    ]
+  );
+
+  return result;
+};
+
+export const updateHrana = async (
+  id,
+  naziv,
+  tip,
+  kolicina,
+  cena,
+  rok_uporabe,
+  korisnik_id
+) => {
+  const [result] = await pool.query(
+    `UPDATE hrana
+     SET naziv = ?,
+         tip = ?,
+         kolicina = ?,
+         cena = ?,
+         rok_uporabe = ?,
+         korisnik_id = ?
+     WHERE id = ?`,
+    [
+      naziv,
+      tip,
+      kolicina,
+      cena,
+      rok_uporabe,
+      korisnik_id,
+      id,
+    ]
+  );
+
+  return result;
+};
+
+export const deleteHrana = async (id) => {
+  const [result] = await pool.query(
+    "DELETE FROM hrana WHERE id = ?",
     [id]
   );
 
