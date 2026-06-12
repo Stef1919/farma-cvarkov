@@ -1,7 +1,7 @@
-import Perad from "./pages/Perad";
+import AppRouter from "./router/AppRouter";
 
 function App() {
-  return <Perad />;
+  return <AppRouter />;
 }
 
 export default App;
