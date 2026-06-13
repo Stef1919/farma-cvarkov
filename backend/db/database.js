@@ -159,3 +159,83 @@ export const deleteHrana = async (id) => {
 
   return result;
 };
+
+//Korisnik
+
+export const allKorisnik = async () => {
+  const [rows] = await pool.query(
+    "SELECT * FROM korisnik"
+  );
+
+  return rows;
+};
+
+export const oneKorisnik = async (id) => {
+  const [rows] = await pool.query(
+    "SELECT * FROM korisnik WHERE id = ?",
+    [id]
+  );
+
+  return rows;
+};
+
+export const createKorisnik = async (
+  ime,
+  telefon,
+  email,
+  naslov,
+  vloga
+) => {
+  const [result] = await pool.query(
+    `INSERT INTO korisnik
+    (ime,
+  telefon,
+  email,
+  naslov,
+  vloga)
+    VALUES (?, ?, ?, ?, ?)`,
+    [ime,
+  telefon,
+  email,
+  naslov,
+  vloga]
+  );
+
+  return result;
+};
+
+export const updateKorisnik = async (
+  id,
+  ime,
+  telefon,
+  email,
+  naslov,
+  vloga
+) => {
+  const [result] = await pool.query(
+    `UPDATE korisnik
+     SET ime = ?,
+         telefon = ?,
+         email = ?,
+         naslov = ?,
+         vloga = ?
+     WHERE id = ?`,
+    [ime,
+  telefon,
+  email,
+  naslov,
+  vloga,
+  id]
+  );
+
+  return result;
+};
+
+export const deleteKorisnik = async (id) => {
+  const [result] = await pool.query(
+    "DELETE FROM korisnik WHERE id = ?",
+    [id]
+  );
+
+  return result;
+};
