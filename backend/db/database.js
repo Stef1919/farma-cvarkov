@@ -239,3 +239,146 @@ export const deleteKorisnik = async (id) => {
 
   return result;
 };
+
+//HRANA-PERAD
+
+export const allHranaPerad = async () => {
+  const [rows] = await pool.query(
+    "SELECT * FROM hrana_perad"
+  );
+
+  return rows;
+};
+
+export const oneHranaPerad = async (id) => {
+  const [rows] = await pool.query(
+    "SELECT * FROM hrana_perad WHERE id = ?",
+    [id]
+  );
+
+  return rows;
+};
+
+export const createHranaPerad = async (
+  hrana_id,
+  perad_id
+) => {
+  const [result] = await pool.query(
+    `INSERT INTO hrana_perad
+    (hrana_id, perad_id)
+    VALUES (?, ?)`,
+    [hrana_id, perad_id]
+  );
+
+  return result;
+};
+
+export const updateHranaPerad = async (
+  id,
+  hrana_id,
+  perad_id
+) => {
+  const [result] = await pool.query(
+    `UPDATE hrana_perad
+     SET hrana_id = ?,
+         perad_id = ?
+     WHERE id = ?`,
+    [hrana_id, perad_id, id]
+  );
+
+  return result;
+};
+
+export const deleteHranaPerad = async (id) => {
+  const [result] = await pool.query(
+    "DELETE FROM hrana_perad WHERE id = ?",
+    [id]
+  );
+
+  return result;
+};
+
+//PROIZVODNJA
+
+export const allProizvodnja = async () => {
+  const [rows] = await pool.query(
+    "SELECT * FROM proizvodnja"
+  );
+
+  return rows;
+};
+
+export const oneProizvodnja = async (id) => {
+  const [rows] = await pool.query(
+    "SELECT * FROM proizvodnja WHERE id = ?",
+    [id]
+  );
+
+  return rows;
+};
+
+export const createProizvodnja = async (
+  datum,
+  tip,
+  kolicina,
+  opombe,
+  perad_id,
+  korisnik_id
+) => {
+  const [result] = await pool.query(
+    `INSERT INTO proizvodnja
+    (datum, tip, kolicina, opombe, perad_id, korisnik_id)
+    VALUES (?, ?, ?, ?, ?, ?)`,
+    [
+      datum,
+      tip,
+      kolicina,
+      opombe,
+      perad_id,
+      korisnik_id,
+    ]
+  );
+
+  return result;
+};
+
+export const updateProizvodnja = async (
+  id,
+  datum,
+  tip,
+  kolicina,
+  opombe,
+  perad_id,
+  korisnik_id
+) => {
+  const [result] = await pool.query(
+    `UPDATE proizvodnja
+     SET datum = ?,
+         tip = ?,
+         kolicina = ?,
+         opombe = ?,
+         perad_id = ?,
+         korisnik_id = ?
+     WHERE id = ?`,
+    [
+      datum,
+      tip,
+      kolicina,
+      opombe,
+      perad_id,
+      korisnik_id,
+      id,
+    ]
+  );
+
+  return result;
+};
+
+export const deleteProizvodnja = async (id) => {
+  const [result] = await pool.query(
+    "DELETE FROM proizvodnja WHERE id = ?",
+    [id]
+  );
+
+  return result;
+};

@@ -217,7 +217,7 @@ export default function Hrana() {
             <td>{item.tip}</td>
             <td>{item.kolicina}</td>
             <td>{item.cena}</td>
-            <td>{item.rok_uporabe}</td>
+            <td>{item.rok_uporabe?.split("T")[0]}</td>
             <td>{item.korisnik_id}</td>
 
             <td>
