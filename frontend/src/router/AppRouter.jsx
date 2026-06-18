@@ -5,6 +5,7 @@ import Hrana from "../pages/Hrana";
 import Korisnik from "../pages/Korisnik";
 import HranaPerad from "../pages/HranaPerad";
 import Proizvodnja from "../pages/Proizvodnja";
+import Pregled from "../pages/Pregled";
 
 export default function AppRouter() {
   return (
@@ -16,6 +17,7 @@ export default function AppRouter() {
         <Route path="/korisnik" element={<Korisnik />} />
         <Route path="/hrana-perad" element={<HranaPerad />} />
         <Route path="/proizvodnja" element={<Proizvodnja />} />
+        <Route path="/pregled" element={<Pregled />} />
       </Routes>
     </BrowserRouter>
   );

@@ -382,3 +382,95 @@ export const deleteProizvodnja = async (id) => {
 
   return result;
 };
+
+//PREGLED
+
+export const allPregled = async () => {
+  const [rows] = await pool.query(
+    "SELECT * FROM pregled"
+  );
+
+  return rows;
+};
+
+export const onePregled = async (id) => {
+  const [rows] = await pool.query(
+    "SELECT * FROM pregled WHERE id = ?",
+    [id]
+  );
+
+  return rows;
+};
+
+export const createPregled = async (
+  datum,
+  diagnoza,
+  stanje,
+  opombe,
+  perad_id,
+  korisnik_id
+) => {
+  const [result] = await pool.query(
+    `INSERT INTO pregled
+    (
+      datum,
+      diagnoza,
+      stanje,
+      opombe,
+      perad_id,
+      korisnik_id
+    )
+    VALUES (?, ?, ?, ?, ?, ?)`,
+    [
+      datum,
+      diagnoza,
+      stanje,
+      opombe,
+      perad_id,
+      korisnik_id,
+    ]
+  );
+
+  return result;
+};
+
+export const updatePregled = async (
+  id,
+  datum,
+  diagnoza,
+  stanje,
+  opombe,
+  perad_id,
+  korisnik_id
+) => {
+  const [result] = await pool.query(
+    `UPDATE pregled
+     SET datum = ?,
+         diagnoza = ?,
+         stanje = ?,
+         opombe = ?,
+         perad_id = ?,
+         korisnik_id = ?
+     WHERE id = ?`,
+    [
+      datum,
+      diagnoza,
+      stanje,
+      opombe,
+      perad_id,
+      korisnik_id,
+      id,
+    ]
+  );
+
+  return result;
+};
+
+export const deletePregled = async (id) => {
+  const [result] = await pool.query(
+    "DELETE FROM pregled WHERE id = ?",
+    [id]
+  );
+
+  return result;
+};
