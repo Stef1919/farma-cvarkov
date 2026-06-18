@@ -6,7 +6,8 @@ import korisnikRoutes from "./routes/korisnik.routes.js";
 import hranaPeradRoutes from "./routes/hranaPerad.routes.js";
 import proizvodnjaRoutes from "./routes/proizvodnja.routes.js";
 import pregledRoutes from "./routes/pregled.routes.js";
-import sertifikatRoutes from "./routes/sertifikat.routes.js"
+import sertifikatRoutes from "./routes/sertifikat.routes.js";
+import prodajaRoutes from "./routes/prodaja.routes.js";
 import cors from "cors";
 
 const app = express();
@@ -20,6 +21,7 @@ app.use("/api/hrana-perad", hranaPeradRoutes);
 app.use("/api/proizvodnja", proizvodnjaRoutes);
 app.use("/api/pregled", pregledRoutes);
 app.use("/api/sertifikat", sertifikatRoutes);
+app.use("/api/prodaja",prodajaRoutes);
 
 app.get("/", (req, res) => {
   res.json({
