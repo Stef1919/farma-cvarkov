@@ -89,7 +89,7 @@ export default function Hrana() {
   setTip(item.tip);
   setKolicina(item.kolicina);
   setCena(item.cena);
-  setRokUporabe(item.rok_uporabe?.split("T")[0]);
+  setRokUporabe(item.rok_uporabe ? item.rok_uporabe.substring(0, 10) : "");
   setKorisnikId(item.korisnik_id);
   setEditId(item.id);
     };  
@@ -217,7 +217,7 @@ export default function Hrana() {
             <td>{item.tip}</td>
             <td>{item.kolicina}</td>
             <td>{item.cena}</td>
-            <td>{item.rok_uporabe?.split("T")[0]}</td>
+            <td>{item.rok_uporabe ? item.rok_uporabe.substring(0, 10) : ""}</td>
             <td>{item.korisnik_id}</td>
 
             <td>

@@ -23,8 +23,7 @@ export const allPerad = async () => {
 
 export const onePerad = async (id) => {
   const [rows] = await pool.query(
-    "SELECT * FROM perad WHERE id = ?",
-    [id]
+    "SELECT * FROM perad WHERE id = ?", [id]
   );
 
   return rows;
@@ -68,8 +67,7 @@ export const updatePerad = async (
 
 export const deletePerad = async (id) => {
   const [result] = await pool.query(
-    "DELETE FROM perad WHERE id = ?",
-    [id]
+    "DELETE FROM perad WHERE id = ?", [id]
   );
 
   return result;
@@ -87,8 +85,7 @@ export const allHrana = async () => {
 
 export const oneHrana = async (id) => {
   const [rows] = await pool.query(
-    "SELECT * FROM hrana WHERE id = ?",
-    [id]
+    "SELECT * FROM hrana WHERE id = ?", [id]
   );
 
   return rows;
@@ -172,8 +169,7 @@ export const allKorisnik = async () => {
 
 export const oneKorisnik = async (id) => {
   const [rows] = await pool.query(
-    "SELECT * FROM korisnik WHERE id = ?",
-    [id]
+    "SELECT * FROM korisnik WHERE id = ?", [id]
   );
 
   return rows;
@@ -233,8 +229,7 @@ export const updateKorisnik = async (
 
 export const deleteKorisnik = async (id) => {
   const [result] = await pool.query(
-    "DELETE FROM korisnik WHERE id = ?",
-    [id]
+    "DELETE FROM korisnik WHERE id = ?", [id]
   );
 
   return result;
@@ -252,8 +247,7 @@ export const allHranaPerad = async () => {
 
 export const oneHranaPerad = async (id) => {
   const [rows] = await pool.query(
-    "SELECT * FROM hrana_perad WHERE id = ?",
-    [id]
+    "SELECT * FROM hrana_perad WHERE id = ?", [id]
   );
 
   return rows;
@@ -291,8 +285,7 @@ export const updateHranaPerad = async (
 
 export const deleteHranaPerad = async (id) => {
   const [result] = await pool.query(
-    "DELETE FROM hrana_perad WHERE id = ?",
-    [id]
+    "DELETE FROM hrana_perad WHERE id = ?", [id]
   );
 
   return result;
@@ -310,8 +303,7 @@ export const allProizvodnja = async () => {
 
 export const oneProizvodnja = async (id) => {
   const [rows] = await pool.query(
-    "SELECT * FROM proizvodnja WHERE id = ?",
-    [id]
+    "SELECT * FROM proizvodnja WHERE id = ?", [id]
   );
 
   return rows;
@@ -376,8 +368,7 @@ export const updateProizvodnja = async (
 
 export const deleteProizvodnja = async (id) => {
   const [result] = await pool.query(
-    "DELETE FROM proizvodnja WHERE id = ?",
-    [id]
+    "DELETE FROM proizvodnja WHERE id = ?", [id]
   );
 
   return result;
@@ -395,8 +386,7 @@ export const allPregled = async () => {
 
 export const onePregled = async (id) => {
   const [rows] = await pool.query(
-    "SELECT * FROM pregled WHERE id = ?",
-    [id]
+    "SELECT * FROM pregled WHERE id = ?", [id]
   );
 
   return rows;
@@ -468,8 +458,91 @@ export const updatePregled = async (
 
 export const deletePregled = async (id) => {
   const [result] = await pool.query(
-    "DELETE FROM pregled WHERE id = ?",
-    [id]
+    "DELETE FROM pregled WHERE id = ?", [id]
+  );
+
+  return result;
+};
+
+//SERTIFIKAT
+
+export const allSertifikat = async () => {
+  const [rows] = await pool.query(
+    "SELECT * FROM sertifikat"
+  );
+
+  return rows;
+};
+
+export const oneSertifikat = async (id) => {
+  const [rows] = await pool.query(
+    "SELECT * FROM sertifikat WHERE id = ?", [id]
+  );
+
+  return rows;
+};
+
+export const createSertifikat = async (
+  naziv,
+  datum_izdaje,
+  datum_poteka,
+  status,
+  proizvodnja_id
+) => {
+  const [result] = await pool.query(
+    `INSERT INTO sertifikat
+    (
+      naziv,
+      datum_izdaje,
+      datum_poteka,
+      status,
+      proizvodnja_id
+    )
+    VALUES (?, ?, ?, ?, ?)`,
+    [
+      naziv,
+      datum_izdaje,
+      datum_poteka,
+      status,
+      proizvodnja_id,
+    ]
+  );
+
+  return result;
+};
+
+export const updateSertifikat = async (
+  id,
+  naziv,
+  datum_izdaje,
+  datum_poteka,
+  status,
+  proizvodnja_id
+) => {
+  const [result] = await pool.query(
+    `UPDATE sertifikat
+     SET naziv = ?,
+         datum_izdaje = ?,
+         datum_poteka = ?,
+         status = ?,
+         proizvodnja_id = ?
+     WHERE id = ?`,
+    [
+      naziv,
+      datum_izdaje,
+      datum_poteka,
+      status,
+      proizvodnja_id,
+      id,
+    ]
+  );
+
+  return result;
+};
+
+export const deleteSertifikat = async (id) => {
+  const [result] = await pool.query(
+    "DELETE FROM sertifikat WHERE id = ?", [id]
   );
 
   return result;

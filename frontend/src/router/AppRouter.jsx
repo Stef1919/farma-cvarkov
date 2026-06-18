@@ -6,6 +6,7 @@ import Korisnik from "../pages/Korisnik";
 import HranaPerad from "../pages/HranaPerad";
 import Proizvodnja from "../pages/Proizvodnja";
 import Pregled from "../pages/Pregled";
+import Sertifikat from "../pages/Sertifikat";
 
 export default function AppRouter() {
   return (
@@ -18,6 +19,7 @@ export default function AppRouter() {
         <Route path="/hrana-perad" element={<HranaPerad />} />
         <Route path="/proizvodnja" element={<Proizvodnja />} />
         <Route path="/pregled" element={<Pregled />} />
+        <Route path="/sertifikat" element={<Sertifikat />} />
       </Routes>
     </BrowserRouter>
   );
