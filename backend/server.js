@@ -8,6 +8,7 @@ import proizvodnjaRoutes from "./routes/proizvodnja.routes.js";
 import pregledRoutes from "./routes/pregled.routes.js";
 import sertifikatRoutes from "./routes/sertifikat.routes.js";
 import prodajaRoutes from "./routes/prodaja.routes.js";
+import authRoutes from "./routes/auth.routes.js";
 import cors from "cors";
 
 const app = express();
@@ -22,6 +23,7 @@ app.use("/api/proizvodnja", proizvodnjaRoutes);
 app.use("/api/pregled", pregledRoutes);
 app.use("/api/sertifikat", sertifikatRoutes);
 app.use("/api/prodaja",prodajaRoutes);
+app.use("/api/auth",authRoutes);
 
 app.get("/", (req, res) => {
   res.json({

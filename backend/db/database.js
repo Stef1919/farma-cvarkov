@@ -180,21 +180,28 @@ export const createKorisnik = async (
   telefon,
   email,
   naslov,
-  vloga
+  vloga,
+  geslo
 ) => {
   const [result] = await pool.query(
     `INSERT INTO korisnik
-    (ime,
-  telefon,
-  email,
-  naslov,
-  vloga)
-    VALUES (?, ?, ?, ?, ?)`,
-    [ime,
-  telefon,
-  email,
-  naslov,
-  vloga]
+    (
+      ime,
+      telefon,
+      email,
+      naslov,
+      vloga,
+      geslo
+    )
+    VALUES (?, ?, ?, ?, ?, ?)`,
+    [
+      ime,
+      telefon,
+      email,
+      naslov,
+      vloga,
+      geslo,
+    ]
   );
 
   return result;
@@ -636,4 +643,14 @@ export const deleteProdaja = async (id) => {
   const [result] = await pool.query("DELETE FROM prodaja WHERE id = ?", [id]);
 
   return result;
+};
+
+//LOGIN
+
+export const authKorisnik = async (email) => {
+  const [rows] = await pool.query(
+    `SELECT * FROM korisnik WHERE email = ?`, [email]
+  );
+
+  return rows;
 };

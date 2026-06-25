@@ -115,8 +115,8 @@ export default function Perad() {
 
   return (
 
-    <main>
-      <h1>Perad</h1>
+    <main className="container mt-4">
+      <h1 className="mb-4">Perad</h1>
 
             <form onSubmit={handleSubmit}>
               <div>
