@@ -46,36 +46,52 @@ export default function Login() {
   }
 
   return (
-    <main>
-      <section>
-        <h1>Prijava</h1>
+  <main className="container d-flex justify-content-center align-items-center vh-100">
+    <div className="card shadow" style={{ width: "400px" }}>
+      <div className="card-body">
+        <h2 className="card-title text-center mb-4">
+          Prijava
+        </h2>
 
         <form onSubmit={handleLogin}>
-          <div>
-            <label>Email</label>
+          <div className="mb-3">
+            <label className="form-label">
+              Email
+            </label>
 
             <input
+              className="form-control"
               type="email"
               value={email}
               onChange={(event) => setEmail(event.target.value)}/>
           </div>
 
-          <div>
-            <label>Geslo</label>
+          <div className="mb-3">
+            <label className="form-label">
+              Geslo
+            </label>
 
             <input
+              className="form-control"
               type="password"
               value={geslo}
               onChange={(event) => setGeslo(event.target.value)}/>
           </div>
 
-          <button type="submit">
+          <button
+            className="btn btn-primary w-100"
+            type="submit">
             Prijava
           </button>
         </form>
 
-        {message && <p>{message}</p>}
-      </section>
-    </main>
+        {message && (
+          <div className="alert alert-info mt-3 mb-0">
+            {message}
+          </div>
+        )}
+      </div>
+    </div>
+  </main>
   );
 }

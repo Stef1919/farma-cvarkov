@@ -178,141 +178,167 @@ const getKorisnik = (id) => {
 };
 
 return(
-<main>
+  <main className="container mt-4">
+    <h1 className="mb-4">Prodaja</h1>
 
-    <form onSubmit={handleSubmit}>
-    <div>
-        <label>Datum</label>
+    <div className="card mb-4">
+      <div className="card-body">
+        <form onSubmit={handleSubmit}>
+          <div className="row">
 
-        <input type="date" value={datum} onChange={(e) => setDatum(e.target.value)}/>
+            <div className="col-md-6 mb-3">
+              <label className="form-label">Datum</label>
+              <input
+                className="form-control"
+                type="date"
+                value={datum}
+                onChange={(e) => setDatum(e.target.value)}/>
+            </div>
+
+            <div className="col-md-6 mb-3">
+              <label className="form-label">Količina</label>
+              <input
+                className="form-control"
+                type="number"
+                value={kolicina}
+                onChange={(e) => setKolicina(e.target.value)}/>
+            </div>
+
+            <div className="col-md-6 mb-3">
+              <label className="form-label">Skupna cena</label>
+              <input
+                className="form-control"
+                type="number"
+                step="0.01"
+                value={skupnaCena}
+                onChange={(e) => setSkupnaCena(e.target.value)}/>
+            </div>
+
+            <div className="col-md-6 mb-3">
+              <label className="form-label">Način plačila</label>
+              <input
+                className="form-control"
+                type="text"
+                value={nacinPlacila}
+                onChange={(e) => setNacinPlacila(e.target.value)}/>
+            </div>
+
+            <div className="col-md-6 mb-3">
+              <label className="form-label">Status</label>
+              <input
+                className="form-control"
+                type="text"
+                value={status}
+                onChange={(e) => setStatus(e.target.value)}/>
+            </div>
+
+            <div className="col-md-6 mb-3">
+              <label className="form-label">Proizvodnja</label>
+
+              <select
+                className="form-select"
+                value={proizvodnjaId}
+                onChange={(e) => setProizvodnjaId(e.target.value)}>
+                <option value="">Izberi proizvodnjo</option>
+
+                {proizvodnja.map((item) => (
+                  <option key={item.id} value={item.id}>
+                    {item.tip} ({item.kolicina})
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="col-md-6 mb-3">
+              <label className="form-label">Korisnik</label>
+
+              <select
+                className="form-select"
+                value={korisnikId}
+                onChange={(e) => setKorisnikId(e.target.value)}>
+                <option value="">Izberi korisnika</option>
+
+                {korisnik.map((item) => (
+                  <option key={item.id} value={item.id}>
+                    {item.ime}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+          </div>
+
+          <button
+            type="submit"
+            className="btn btn-primary">
+            {editId ? "Posodobi prodajo" : "Dodaj prodajo"}
+          </button>
+        </form>
+      </div>
     </div>
 
-    <div>
-        <label>Količina</label>
+    {message && (
+      <div className="alert alert-info">
+        {message}
+      </div>
+    )}
 
-        <input type="number" value={kolicina} onChange={(e) => setKolicina(e.target.value)}/>
+    <div className="table-responsive">
+      <table className="table table-striped table-bordered table-hover align-middle">
+        <thead className="table-dark">
+          <tr>
+            <th>ID</th>
+            <th>Datum</th>
+            <th>Količina</th>
+            <th>Skupna cena</th>
+            <th>Način plačila</th>
+            <th>Status</th>
+            <th>Proizvodnja</th>
+            <th>Korisnik</th>
+            <th>Akcije</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {prodaja.map((item) => (
+            <tr key={item.id}>
+              <td>{item.id}</td>
+
+              <td>
+                {item.datum ? item.datum.substring(0, 10) : ""}
+              </td>
+
+              <td>{item.kolicina}</td>
+
+              <td>{item.skupna_cena}</td>
+
+              <td>{item.nacin_placila}</td>
+
+              <td>{item.status}</td>
+
+              <td>{getProizvodnja(item.proizvodnja_id)}</td>
+
+              <td>{getKorisnik(item.korisnik_id)}</td>
+
+              <td>
+                <button
+                  className="btn btn-warning btn-sm me-2"
+                  onClick={() => handleEdit(item)}>
+                  Uredi
+                </button>
+
+                <button
+                  className="btn btn-danger btn-sm"
+                  onClick={() => handleDelete(item.id)}>
+                  Izbriši
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
-
-    <div>
-        <label>Skupna cena</label>
-
-        <input type="number" step="0.01" value={skupnaCena} onChange={(e) => setSkupnaCena(e.target.value)}/>
-    </div>
-
-    <div>
-        <label>Način plačila</label>
-
-        <input type="text" value={nacinPlacila} onChange={(e) => setNacinPlacila(e.target.value)}/>
-    </div>
-
-    <div>
-        <label>Status</label>
-
-        <input type="text" value={status} onChange={(e) => setStatus(e.target.value)}/>
-    </div>
-
-    <div>
-        <label>Proizvodnja</label>
-
-        <select value={proizvodnjaId} onChange={(e) => setProizvodnjaId(e.target.value)}>
-        <option value="">
-            Izberi proizvodnjo
-        </option>
-
-        {proizvodnja.map(
-            (item) => (
-            <option key={item.id} value={item.id} >
-                {item.tip} ({item.kolicina})
-            </option>
-            )
-        )}
-        </select>
-    </div>
-
-    <div>
-        <label>Korisnik</label>
-
-        <select value={korisnikId} onChange={(e) => setKorisnikId(e.target.value)}>
-        <option value="">
-            Izberi korisnika
-        </option>
-
-        {korisnik.map(
-            (item) => (
-            <option key={item.id} value={item.id}>
-                {item.ime}
-            </option>
-            )
-        )}
-        </select>
-    </div>
-
-    <button type="submit">
-        {editId ? "Posodobi prodajo" : "Dodaj prodajo"}
-    </button>
-    </form>
-
-    {message && <p>{message}</p>}
-
-    <table border="1">
-    <thead>
-        <tr>
-        <th>ID</th>
-        <th>Datum</th>
-        <th>Količina</th>
-        <th>Skupna cena</th>
-        <th>Način plačila</th>
-        <th>Status</th>
-        <th>Proizvodnja</th>
-        <th>Korisnik</th>
-        <th>Akcije</th>
-        </tr>
-    </thead>
-
-    <tbody>
-        {prodaja.map((item) => (
-        <tr key={item.id}>
-            <td>{item.id}</td>
-
-            <td>
-            {item.datum ? item.datum.substring(0,10) : ""}
-            </td>
-
-            <td>{item.kolicina}</td>
-
-            <td>
-            {item.skupna_cena}
-            </td>
-
-            <td>
-            {item.nacin_placila}
-            </td>
-
-            <td>{item.status}</td>
-
-            <td>
-            {getProizvodnja(item.proizvodnja_id)}
-            </td>
-
-            <td>
-            {getKorisnik(item.korisnik_id)}
-            </td>
-
-            <td>
-            <button onClick={() => handleEdit(item)}>
-                Uredi
-            </button>
-
-            <button onClick={() => handleDelete(item.id)}>
-                Izbriši
-            </button>
-            </td>
-        </tr>
-        ))}
-    </tbody>
-    </table>
-
-</main>
+  </main>
 )
 
 }
