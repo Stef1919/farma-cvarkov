@@ -170,140 +170,125 @@ export default function Proizvodnja(){
     };
 
     return(
-        <main>
-        <h1>Proizvodnja</h1>
+    <main className="container mt-4">
+    <h1 className="mb-4">Proizvodnja</h1>
 
+    <div className="card mb-4">
+        <div className="card-body">
         <form onSubmit={handleSubmit}>
-            <div>
-            <label>Datum</label>
-            <input
+            <div className="row">
+
+            <div className="col-md-6 mb-3">
+                <label className="form-label">Datum</label>
+                <input
+                className="form-control"
                 type="date"
                 value={datum}
-                onChange={(e) =>
-                setDatum(e.target.value)
-                }
-            />
+                onChange={(e) => setDatum(e.target.value)}
+                />
             </div>
 
-            <div>
-            <label>Tip</label>
-            <select
+            <div className="col-md-6 mb-3">
+                <label className="form-label">Tip</label>
+                <select
+                className="form-select"
                 value={tip}
-                onChange={(e) =>
-                setTip(e.target.value)
-                }
-            >
-                <option value="">
-                Izberi
-                </option>
-
-                <option value="perad">
-                Perad
-                </option>
-
-                <option value="jajca">
-                Jajca
-                </option>
-            </select>
+                onChange={(e) => setTip(e.target.value)}>
+                <option value="">Izberi</option>
+                <option value="perad">Perad</option>
+                <option value="jajca">Jajca</option>
+                </select>
             </div>
 
-            <div>
-            <label>Količina</label>
-            <input
+            <div className="col-md-6 mb-3">
+                <label className="form-label">Količina</label>
+                <input
+                className="form-control"
                 type="number"
                 value={kolicina}
-                onChange={(e) =>
-                setKolicina(e.target.value)
-                }
-            />
+                onChange={(e) => setKolicina(e.target.value)}/>
             </div>
 
-            <div>
-            <label>Opombe</label>
-            <textarea
-                value={opombe}
-                onChange={(e) =>
-                setOpombe(e.target.value)
-                }
-            />
-            </div>
-
-            <div>
-            <label>Perad</label>
-            <select
+            <div className="col-md-6 mb-3">
+                <label className="form-label">Perad</label>
+                <select
+                className="form-select"
                 value={peradId}
-                onChange={(e) =>
-                setPeradId(e.target.value)
-                }
-            >
-                <option value="">
-                Izberi perad
-                </option>
+                onChange={(e) => setPeradId(e.target.value)}>
+                <option value="">Izberi perad</option>
 
                 {perad.map((item) => (
-                <option
-                    key={item.id}
-                    value={item.id}
-                >
+                    <option key={item.id} value={item.id}>
                     {item.vrsta}
-                </option>
+                    </option>
                 ))}
-            </select>
+                </select>
             </div>
 
-            <div>
-            <label>Korisnik</label>
-            <select
+            <div className="col-md-6 mb-3">
+                <label className="form-label">Korisnik</label>
+                <select
+                className="form-select"
                 value={korisnikId}
-                onChange={(e) =>
-                setKorisnikId(e.target.value)
-                }
-            >
-                <option value="">
-                Izberi korisnika
-                </option>
+                onChange={(e) => setKorisnikId(e.target.value)}>
+                <option value="">Izberi korisnika</option>
 
                 {korisnik.map((item) => (
-                <option
-                    key={item.id}
-                    value={item.id}
-                >
+                    <option key={item.id} value={item.id}>
                     {item.ime}
-                </option>
+                    </option>
                 ))}
-            </select>
+                </select>
             </div>
 
-            <button type="submit">
-            {editId
-                ? "Posodobi proizvodnjo"
-                : "Dodaj proizvodnjo"}
+            <div className="col-12 mb-3">
+                <label className="form-label">Opombe</label>
+                <textarea
+                className="form-control"
+                rows="3"
+                value={opombe}
+                onChange={(e) => setOpombe(e.target.value)}/>
+            </div>
+
+            </div>
+
+            <button
+            type="submit"
+            className="btn btn-primary">
+            {editId ? "Posodobi proizvodnjo" : "Dodaj proizvodnjo"}
             </button>
         </form>
+        </div>
+    </div>
 
-        {message && <p>{message}</p>}
+    {message && (
+        <div className="alert alert-info">
+        {message}
+        </div>
+    )}
 
-        <table border="1">
-            <thead>
+    <div className="table-responsive">
+        <table className="table table-striped table-bordered table-hover align-middle">
+        <thead className="table-dark">
             <tr>
-                <th>ID</th>
-                <th>Datum</th>
-                <th>Tip</th>
-                <th>Količina</th>
-                <th>Opombe</th>
-                <th>Perad</th>
-                <th>Korisnik</th>
-                <th>Akcije</th>
+            <th>ID</th>
+            <th>Datum</th>
+            <th>Tip</th>
+            <th>Količina</th>
+            <th>Opombe</th>
+            <th>Perad</th>
+            <th>Korisnik</th>
+            <th>Akcije</th>
             </tr>
-            </thead>
+        </thead>
 
-            <tbody>
+        <tbody>
             {proizvodnja.map((item) => (
-                <tr key={item.id}>
+            <tr key={item.id}>
                 <td>{item.id}</td>
 
                 <td>
-                    {item.datum?.split("T")[0]}
+                {item.datum?.split("T")[0]}
                 </td>
 
                 <td>{item.tip}</td>
@@ -313,26 +298,31 @@ export default function Proizvodnja(){
                 <td>{item.opombe}</td>
 
                 <td>
-                    {getPeradVrsta(item.perad_id)}
+                {getPeradVrsta(item.perad_id)}
                 </td>
 
                 <td>
-                    {getKorisnikIme(item.korisnik_id)}
+                {getKorisnikIme(item.korisnik_id)}
                 </td>
 
                 <td>
-                    <button onClick={() =>handleEdit(item)}>
+                <button
+                    className="btn btn-warning btn-sm me-2"
+                    onClick={() => handleEdit(item)}>
                     Uredi
-                    </button>
+                </button>
 
-                    <button onClick={() => handleDelete(item.id)}>
+                <button
+                    className="btn btn-danger btn-sm"
+                    onClick={() => handleDelete(item.id)}>
                     Izbriši
-                    </button>
+                </button>
                 </td>
-                </tr>
+            </tr>
             ))}
-            </tbody>
+        </tbody>
         </table>
-        </main>
+    </div>
+    </main>
     );
 }
