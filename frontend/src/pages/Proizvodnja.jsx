@@ -15,6 +15,7 @@ export default function Proizvodnja(){
     const [korisnik, setKorisnik] = useState([]);
     const [editId, setEditId] = useState(null);
     const [message, setMessage] = useState("");
+    const [filterTip, setFilterTip] = useState("");
 
     const loadProizvodnja = async () => {
 
@@ -266,6 +267,38 @@ export default function Proizvodnja(){
         {message}
         </div>
     )}
+    <div className="card mb-3">
+    <div className="card-body">
+        <div className="row align-items-end">
+
+        <div className="col-md-4">
+            <label className="form-label">
+            Filtriraj po tipu
+            </label>
+
+            <select
+            className="form-select"
+            value={filterTip}
+            onChange={(e) => setFilterTip(e.target.value)}
+            >
+            <option value="">Vsi tipi</option>
+            <option value="perad">Perad</option>
+            <option value="jajca">Jajca</option>
+            </select>
+        </div>
+
+        <div className="col-md-2">
+            <button
+            className="btn btn-secondary w-100"
+            onClick={() => setFilterTip("")}
+            >
+            Počisti filter
+            </button>
+        </div>
+
+        </div>
+    </div>
+    </div>
 
     <div className="table-responsive">
         <table className="table table-striped table-bordered table-hover align-middle">
@@ -283,7 +316,8 @@ export default function Proizvodnja(){
         </thead>
 
         <tbody>
-            {proizvodnja.map((item) => (
+            {proizvodnja.filter((item) => { 
+                return filterTip === "" || item.tip === filterTip;}).map((item) => (
             <tr key={item.id}>
                 <td>{item.id}</td>
 

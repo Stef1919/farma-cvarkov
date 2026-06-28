@@ -12,6 +12,8 @@ export default function Hrana() {
     const [korisnikId, setKorisnikId] = useState("");
     const [message, setMessage] = useState("");
     const [editId, setEditId] = useState(null);
+    const [search, setSearch] = useState("");
+    const [sortBy, setSortBy] = useState("");
 
     const loadHrana = async () => {
     try {
@@ -226,7 +228,33 @@ export default function Hrana() {
         {message}
       </div>
     )}
+   <div className="row mb-3">
 
+  <div className="col-md-4">
+    <input
+      type="text"
+      className="form-control"
+      placeholder="Išči po tipu..."
+      value={search}
+      onChange={(e) => setSearch(e.target.value)}
+    />
+  </div>
+
+  <div className="col-md-4">
+    <select
+      className="form-select"
+      value={sortBy}
+      onChange={(e) => setSortBy(e.target.value)}
+    >
+      <option value="">Brez sortiranja</option>
+      <option value="nazivAsc">Naziv A-Z</option>
+      <option value="nazivDesc">Naziv Z-A</option>
+      <option value="cenaAsc">Cena ↑</option>
+      <option value="cenaDesc">Cena ↓</option>
+    </select>
+  </div>
+
+</div>
     <table className="table table-striped table-bordered">
       <thead className="table-dark">
         <tr>
@@ -242,7 +270,26 @@ export default function Hrana() {
       </thead>
 
       <tbody>
-        {hrana.map((item) => (
+        {hrana.filter((item) =>
+        item.tip.toLowerCase().includes(search.toLowerCase())
+        ).sort((a, b) => {
+          switch (sortBy) {
+            case "nazivAsc":
+              return a.naziv.localeCompare(b.naziv);
+
+            case "nazivDesc":
+              return b.naziv.localeCompare(a.naziv);
+
+            case "cenaAsc":
+              return Number(a.cena) - Number(b.cena);
+
+            case "cenaDesc":
+              return Number(b.cena) - Number(a.cena);
+
+            default:
+              return 0;
+          }
+        }).map((item) => (
           <tr key={item.id}>
             <td>{item.id}</td>
             <td>{item.naziv}</td>

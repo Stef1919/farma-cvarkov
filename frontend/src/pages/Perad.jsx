@@ -9,6 +9,7 @@ export default function Perad() {
   const [spol, setSpol] = useState("");
   const [kolicina, setKolicina] = useState("");
   const [editId, setEditId] = useState(null);
+  const [search, setSearch] = useState("");
 
   const loadPerad = async () => {
       try {
@@ -188,7 +189,19 @@ export default function Perad() {
 
     {message && (
       <div className="alert alert-info"> {message} </div>)}
+    <div className="row mb-3">
 
+  <div className="col-md-4">
+    <input
+      type="text"
+      className="form-control"
+      placeholder=""
+      value={search}
+      onChange={(e) => setSearch(e.target.value)}
+    />
+  </div>
+
+</div>
     <div className="table-responsive">
       <table className="table table-striped table-bordered table-hover align-middle">
         <thead className="table-dark">
@@ -203,7 +216,7 @@ export default function Perad() {
         </thead>
 
         <tbody>
-          {perad.map((item) => (
+         {perad.filter((item) => item.vrsta.toLowerCase().includes(search.toLowerCase())).map((item) => (
             <tr key={item.id}>
               <td>{item.id}</td>
               <td>{item.vrsta}</td>
