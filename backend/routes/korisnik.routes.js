@@ -82,7 +82,7 @@ const createOneKorisnik = async (req, res, next) => {
     if (queryResult.affectedRows === 1) {
       res.status(201).json({
         success: true,
-        message: "Korisnik dodana.",
+        message: "Korisnik dodan.",
       });
 
       return;

@@ -11,12 +11,14 @@ import Prodaja from "../pages/Prodaja";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Menu from "../components/Menu";
+import Dashboard from "../pages/Dashboard";
 
 export default function AppRouter() {
   return (
     <BrowserRouter>
       <Menu />
       <Routes>
+        <Route path="/" element={<Login />} />
         <Route path="/perad" element={<Perad />} />
         <Route path="/hrana" element={<Hrana />} />
         <Route path="/korisnik" element={<Korisnik />} />
@@ -27,6 +29,7 @@ export default function AppRouter() {
         <Route path="/prodaja" element={<Prodaja />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </BrowserRouter>
   );

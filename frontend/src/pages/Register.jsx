@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { API_URL } from "../config/api";
+import { Link } from "react-router";
 
 export default function Register() {
   const [ime, setIme] = useState("");
@@ -44,6 +45,12 @@ export default function Register() {
         setNaslov("");
         setVloga("");
         setGeslo("");
+        
+        localStorage.setItem(
+            "user",
+            JSON.stringify(data.user)
+          );
+        window.location.href = "/dashboard";
       } else {
         setMessage(
           data.message || "Registracija ni uspela."
@@ -171,6 +178,13 @@ export default function Register() {
             {message}
           </div>
         )}
+      <p className="text-center mt-3">
+      Že imaš račun?{" "}
+      <Link to="/login">
+          Prijavi se
+      </Link>
+      </p>
+
       </div>
     </div>
   </main>

@@ -645,7 +645,39 @@ export const deleteProdaja = async (id) => {
   return result;
 };
 
-//LOGIN
+// LOGIN REGISTER
+
+export const registerKorisnik = async (
+  ime,
+  telefon,
+  email,
+  naslov,
+  vloga,
+  geslo
+) => {
+  const [result] = await pool.query(
+    `INSERT INTO korisnik
+    (
+      ime,
+      telefon,
+      email,
+      naslov,
+      vloga,
+      geslo
+    )
+    VALUES (?, ?, ?, ?, ?, ?)`,
+    [
+      ime,
+      telefon,
+      email,
+      naslov,
+      vloga,
+      geslo,
+    ]
+  );
+
+  return result;
+};
 
 export const authKorisnik = async (email) => {
   const [rows] = await pool.query(
