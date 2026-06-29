@@ -166,104 +166,114 @@ export default function HranaPerad(){
     return found ? found.vrsta : id;
     };
 
-    return(
-        <main>
-        <h1>HranaPerad</h1>
+return (
+  <main className="container mt-4">
+    <h1 className="mb-4">HranaPerad</h1>
+
+    <div className="card mb-4">
+      <div className="card-body">
         <form onSubmit={handleSubmit}>
+          <div className="row">
+            <div className="col-md-6 mb-3">
+              <label className="form-label">
+                Hrana
+              </label>
 
-        <div>
-        <label>Hrana</label>
-        <select
-            value={hranaId}
-            onChange={(event) =>
-            setHranaId(event.target.value)
-            }
-        >
-            <option value="">
-            Izberi hrano
-            </option>
+              <select
+                className="form-select"
+                value={hranaId}
+                onChange={(event) => setHranaId(event.target.value)}>
+                <option value="">
+                  Izberi hrano
+                </option>
 
-            {hrana.map((item) => (
-            <option
-                key={item.id}
-                value={item.id}
-            >
-                {item.naziv}
-            </option>
-            ))}
-        </select>
-        </div>
+                {hrana.map((item) => (
+                  <option
+                    key={item.id}
+                    value={item.id}>
+                    {item.naziv}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-        <div>
-        <label>Perad</label>
-        <select
-            value={peradId}
-            onChange={(event) =>
-            setPeradId(event.target.value)
-            }
-        >
-            <option value="">
-            Izberi perad
-            </option>
+            <div className="col-md-6 mb-3">
+              <label className="form-label">
+                Perad
+              </label>
 
-            {perad.map((item) => (
-            <option
-                key={item.id}
-                value={item.id}
-            >
-                {item.vrsta}
-            </option>
-            ))}
-        </select>
-        </div>
+              <select
+                className="form-select"
+                value={peradId}
+                onChange={(event) => setPeradId(event.target.value)}>
+                <option value="">
+                  Izberi perad
+                </option>
 
-        <button type="submit">
-        {editId
-            ? "Posodobi povezavo"
-            : "Dodaj povezavo"}
-        </button>
+                {perad.map((item) => (
+                  <option
+                    key={item.id}
+                    value={item.id}>
+                    {item.vrsta}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
 
+          <button
+            type="submit"
+            className="btn btn-primary">
+            {editId ? "Posodobi povezavo" : "Dodaj povezavo"}
+          </button>
         </form>
+      </div>
+    </div>
 
-        {message && <p>{message}</p>}
+    {message && (<div className="alert alert-info"> {message} </div>)}
 
-        <table border="1">
-        <thead>
-            <tr>
-            <th>ID</th>
-            <th>Hrana ID</th>
-            <th>Perad ID</th>
-            <th>Akcije</th>
-            </tr>
-        </thead>
+    <table className="table table-striped table-bordered">
+      <thead className="table-dark">
+        <tr>
+          <th>ID</th>
+          <th>Hrana</th>
+          <th>Perad</th>
+          <th>Akcije</th>
+        </tr>
+      </thead>
 
-        <tbody>
-            {hranaPerad.map((item) => (
-            <tr key={item.id}>
-                <td>{item.id}</td>
-                <td>
-                {getHranaNaziv(item.hrana_id)}
-                </td>
+      <tbody>
+        {hranaPerad.map((item) => (
+          <tr key={item.id}>
+            <td>{item.id}</td>
 
-                <td>
-                {getPeradVrsta(item.perad_id)}
-                </td>
+            <td>
+              {getHranaNaziv(item.hrana_id)}
+            </td>
 
-                <td>
-                <button onClick={() => handleEdit(item)}>
-                    Uredi
-                </button>
+            <td>
+              {getPeradVrsta(item.perad_id)}
+            </td>
 
-                <button onClick={() => handleDelete(item.id)}>
-                    Izbriši
-                </button>
-                </td>
-            </tr>
-            ))}
-        </tbody>
-        </table>
+            <td>
+              <button
+                className="btn btn-warning btn-sm me-2"
+                onClick={() => handleEdit(item)}>
+                Uredi
+              </button>
 
-        </main>
-    );
+              <button
+                className="btn btn-danger btn-sm"
+                onClick={() => handleDelete(item.id)}>
+                Izbriši
+              </button>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </main>
+);
+        
 
 }

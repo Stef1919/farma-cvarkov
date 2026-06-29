@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { API_URL } from "../config/api";
+import { Link } from "react-router";
 
 export default function Register() {
   const [ime, setIme] = useState("");
@@ -44,6 +45,12 @@ export default function Register() {
         setNaslov("");
         setVloga("");
         setGeslo("");
+        
+        localStorage.setItem(
+            "user",
+            JSON.stringify(data.user)
+          );
+        window.location.href = "/dashboard";
       } else {
         setMessage(
           data.message || "Registracija ni uspela."
@@ -56,89 +63,130 @@ export default function Register() {
   }
 
   return (
-    <main>
-      <section>
-        <h1>Registracija</h1>
+  <main className="container d-flex justify-content-center align-items-center vh-100">
+    <div className="card shadow" style={{ width: "500px" }}>
+      <div className="card-body">
+        <h2 className="card-title text-center mb-4">
+          Registracija
+        </h2>
 
         <form onSubmit={handleRegister}>
-          <div>
-            <label>Ime</label>
-            <input
-              type="text"
-              value={ime}
-              onChange={(event) => setIme(event.target.value)}
-            />
+          <div className="row">
+
+            <div className="col-md-6 mb-3">
+              <label className="form-label">
+                Ime
+              </label>
+
+              <input
+                className="form-control"
+                type="text"
+                value={ime}
+                onChange={(event) => setIme(event.target.value)}/>
+            </div>
+
+            <div className="col-md-6 mb-3">
+              <label className="form-label">
+                Telefon
+              </label>
+
+              <input
+                className="form-control"
+                type="text"
+                value={telefon}
+                onChange={(event) => setTelefon(event.target.value)}/>
+            </div>
+
+            <div className="col-12 mb-3">
+              <label className="form-label">
+                Email
+              </label>
+
+              <input
+                className="form-control"
+                type="email"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}/>
+            </div>
+
+            <div className="col-12 mb-3">
+              <label className="form-label">
+                Naslov
+              </label>
+
+              <input
+                className="form-control"
+                type="text"
+                value={naslov}
+                onChange={(event) => setNaslov(event.target.value)}/>
+            </div>
+
+            <div className="col-md-6 mb-3">
+              <label className="form-label">
+                Vloga
+              </label>
+
+              <select
+                className="form-select"
+                value={vloga}
+                onChange={(event) => setVloga(event.target.value)}>
+                <option value="">
+                  Izberi
+                </option>
+
+                <option value="admin">
+                  Admin
+                </option>
+
+                <option value="delavec">
+                  Delavec
+                </option>
+
+                <option value="kupec">
+                  Kupec
+                </option>
+
+                <option value="dostavljalec">
+                  Dostavljalec
+                </option>
+              </select>
+            </div>
+
+            <div className="col-md-6 mb-3">
+              <label className="form-label">
+                Geslo
+              </label>
+
+              <input
+                className="form-control"
+                type="password"
+                value={geslo}
+                onChange={(event) => setGeslo(event.target.value)}/>
+            </div>
+
           </div>
 
-          <div>
-            <label>Telefon</label>
-            <input
-              type="text"
-              value={telefon}
-              onChange={(event) => setTelefon(event.target.value)}
-            />
-          </div>
-
-          <div>
-            <label>Email</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-            />
-          </div>
-
-          <div>
-            <label>Naslov</label>
-            <input
-              type="text"
-              value={naslov}
-              onChange={(event) => setNaslov(event.target.value)}/>
-          </div>
-
-          <div>
-            <label>Vloga</label>
-
-            <select
-              value={vloga}
-              onChange={(event) => setVloga(event.target.value)}>
-              <option value="">
-                Izberi
-              </option>
-
-              <option value="admin">
-                Admin
-              </option>
-
-              <option value="delavec">
-                Delavec
-              </option>
-
-              <option value="kupec">
-                Kupec
-              </option>
-
-              <option value="dostavljalec">
-                Dostavljalec
-              </option>
-            </select>
-          </div>
-
-          <div>
-            <label>Geslo</label>
-            <input
-              type="password"
-              value={geslo}
-              onChange={(event) => setGeslo(event.target.value)}/>
-          </div>
-
-          <button type="submit">
+          <button
+            type="submit"
+            className="btn btn-success w-100">
             Registracija
           </button>
         </form>
 
-        {message && <p>{message}</p>}
-      </section>
-    </main>
+        {message && (
+          <div className="alert alert-info mt-3 mb-0">
+            {message}
+          </div>
+        )}
+      <p className="text-center mt-3">
+      Že imaš račun?{" "}
+      <Link to="/login">
+          Prijavi se
+      </Link>
+      </p>
+
+      </div>
+    </div>
+  </main>
   );
 }

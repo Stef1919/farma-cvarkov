@@ -9,6 +9,7 @@ export default function Perad() {
   const [spol, setSpol] = useState("");
   const [kolicina, setKolicina] = useState("");
   const [editId, setEditId] = useState(null);
+  const [search, setSearch] = useState("");
 
   const loadPerad = async () => {
       try {
@@ -114,69 +115,96 @@ export default function Perad() {
   };
 
   return (
+  <main className="container mt-4">
+    <h1 className="mb-4">Perad</h1>
 
-    <main className="container mt-4">
-      <h1 className="mb-4">Perad</h1>
+    <div className="card mb-4">
+      <div className="card-body">
+        <form onSubmit={handleSubmit}>
+          <div className="row">
+            <div className="col-md-6 mb-3">
+              <label className="form-label">
+                Vrsta
+              </label>
 
-            <form onSubmit={handleSubmit}>
-              <div>
-                <label>Vrsta</label>
-                <input
-                  type="text"
-                  value={vrsta}
-                  onChange={(event) =>
-                    setVrsta(event.target.value)
-                  }
-                />
-              </div>
+              <input
+                className="form-control"
+                type="text"
+                value={vrsta}
+                onChange={(event) => setVrsta(event.target.value)}/>
+            </div>
 
-              <div>
-                <label>Starost</label>
-                <input
-                  type="number"
-                  value={starost}
-                  onChange={(event) =>
-                    setStarost(event.target.value)
-                  }
-                />
-              </div>
+            <div className="col-md-6 mb-3">
+              <label className="form-label">
+                Starost
+              </label>
 
-              <div>
-                <label>Spol</label>
+              <input
+                className="form-control"
+                type="number"
+                value={starost}
+                onChange={(event) => setStarost(event.target.value)}/>
+            </div>
 
-                <select
-                  value={spol}
-                  onChange={(event) =>
-                    setSpol(event.target.value)
-                  }
-                >
-                  <option value="">Izberi</option>
-                  <option value="moski">Moški</option>
-                  <option value="zenski">Ženski</option>
-                </select>
-              </div>
+            <div className="col-md-6 mb-3">
+              <label className="form-label">
+                Spol
+              </label>
 
-              <div>
-                <label>Količina</label>
-                <input
-                  type="number"
-                  value={kolicina}
-                  onChange={(event) =>
-                    setKolicina(event.target.value)
-                  }
-                />
-              </div>
+              <select
+                className="form-select"
+                value={spol}
+                onChange={(event) => setSpol(event.target.value)}>
+                <option value="">Izberi</option>
+                <option value="moski">
+                  Moški
+                </option>
+                <option value="zenski">
+                  Ženski
+                </option>
+              </select>
+            </div>
 
-              <button type="submit">
-                {editId ? "Posodobi perad" : "Dodaj perad"}
-              </button>
-           </form>
+            <div className="col-md-6 mb-3">
+              <label className="form-label">
+                Količina
+              </label>
 
+              <input
+                className="form-control"
+                type="number"
+                value={kolicina}
+                onChange={(event) => setKolicina(event.target.value)}/>
+            </div>
+          </div>
 
-      {message && <p>{message}</p>}
+          <button
+            type="submit"
+            className="btn btn-primary">
+            {editId ? "Posodobi perad" : "Dodaj perad"}
+          </button>
+        </form>
+      </div>
+    </div>
 
-      <table border="1">
-        <thead>
+    {message && (
+      <div className="alert alert-info"> {message} </div>)}
+    <div className="row mb-3">
+
+  <div className="col-md-4">
+    <input
+      type="text"
+      className="form-control"
+      placeholder=""
+      value={search}
+      onChange={(e) => setSearch(e.target.value)}
+    />
+  </div>
+
+</div>
+    <div className="table-responsive">
+      <table className="table table-striped table-bordered table-hover align-middle">
+        <thead className="table-dark">
           <tr>
             <th>ID</th>
             <th>Vrsta</th>
@@ -188,19 +216,24 @@ export default function Perad() {
         </thead>
 
         <tbody>
-          {perad.map((item) => (
+         {perad.filter((item) => item.vrsta.toLowerCase().includes(search.toLowerCase())).map((item) => (
             <tr key={item.id}>
               <td>{item.id}</td>
               <td>{item.vrsta}</td>
               <td>{item.starost}</td>
               <td>{item.spol}</td>
               <td>{item.kolicina}</td>
+
               <td>
-                <button onClick={() => handleEdit(item)}>
+                <button
+                  className="btn btn-warning btn-sm me-2"
+                  onClick={() => handleEdit(item)}>
                   Uredi
                 </button>
 
-                <button onClick={() => handleDelete(item.id)}>
+                <button
+                  className="btn btn-danger btn-sm"
+                  onClick={() => handleDelete(item.id)}>
                   Izbriši
                 </button>
               </td>
@@ -208,6 +241,7 @@ export default function Perad() {
           ))}
         </tbody>
       </table>
-    </main>
+    </div>
+  </main>
   );
 }

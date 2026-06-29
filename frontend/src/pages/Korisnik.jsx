@@ -4,14 +4,13 @@ import { API_URL } from "../config/api";
 export default function Korisnik(){
     const [korisnik, setKorisnik] = useState([]);
     const [message, setMessage] = useState("");
-
     const [ime, setIme] = useState("");
     const [telefon, setTelefon] = useState("");
     const [email, setEmail] = useState("");
     const [naslov, setNaslov] = useState("");
     const [vloga, setVloga] = useState("");
-
     const [editId, setEditId] = useState(null);
+    const [filterVloga, setFilterVloga] = useState("");
 
     const loadKorisnik = async () => {
         try {
@@ -120,88 +119,111 @@ export default function Korisnik(){
 
    return (
 
-    <main>
-      <h1>Korisnik</h1>
+    <main className="container mt-4">
+  <h1 className="mb-4">Korisnik</h1>
 
-            <form onSubmit={handleSubmit}>
-             <div>
-                <label>Ime</label>
-                <input
-                    type="text"
-                    value={ime}
-                    onChange={(e) => setIme(e.target.value)}
-                />
-                </div>
+  <div className="card mb-4">
+    <div className="card-body">
+      <form onSubmit={handleSubmit}>
+        <div className="row">
+          <div className="col-md-6 mb-3">
+            <label className="form-label">Ime</label>
+            <input
+              className="form-control"
+              type="text"
+              value={ime}
+              onChange={(e) => setIme(e.target.value)}/>
+          </div>
 
-                <div>
-                <label>Telefon</label>
-                <input
-                    type="text"
-                    value={telefon}
-                    onChange={(e) => setTelefon(e.target.value)}
-                />
-                </div>
+          <div className="col-md-6 mb-3">
+            <label className="form-label">Telefon</label>
+            <input
+              className="form-control"
+              type="text"
+              value={telefon}
+              onChange={(e) => setTelefon(e.target.value)}/>
+          </div>
 
-                <div>
-                <label>Email</label>
-                <input
-                    type="text"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-                </div>
+          <div className="col-md-6 mb-3">
+            <label className="form-label">Email</label>
+            <input
+              className="form-control"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}/>
+          </div>
 
-                <div>
-                <label>Naslov</label>
-                <input
-                    type="text"
-                    value={naslov}
-                    onChange={(e) => setNaslov(e.target.value)}
-                />
-                </div>
+          <div className="col-md-6 mb-3">
+            <label className="form-label">Naslov</label>
+            <input
+              className="form-control"
+              type="text"
+              value={naslov}
+              onChange={(e) => setNaslov(e.target.value)}/>
+          </div>
 
-                <div>
-                <label>Vloga</label>
-                <select
-                value={vloga}
-                onChange={(e) => setVloga(e.target.value)}
-                >
-                <option value="">Izberi</option>
-                <option value="delavec">Delavec</option>
-                <option value="dostavljalec">Dostavljalec</option>
-                <option value="kupec">Kupec</option>
-                <option value="admin">Admin</option>
-                </select>
-                </div>               
+          <div className="col-md-6 mb-3">
+            <label className="form-label">Vloga</label>
+            <select
+              className="form-select"
+              value={vloga}
+              onChange={(e) => setVloga(e.target.value)}>
+              <option value="">Izberi</option>
+              <option value="delavec">Delavec</option>
+              <option value="dostavljalec">Dostavljalec</option>
+              <option value="kupec">Kupec</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+        </div>
 
+        <button
+          type="submit"
+          className="btn btn-primary">
+          {editId ? "Posodobi korisnika" : "Dodaj korisnika"}
+        </button>
+      </form>
+    </div>
+  </div>
 
+  {message && (
+    <div className="alert alert-info">
+      {message}
+    </div>
+  )}
+    <div className="row mb-3">
+    <div className="col-md-4">
+      <select
+        className="form-select"
+        value={filterVloga}
+        onChange={(e) => setFilterVloga(e.target.value)}>
 
+        <option value="">Vse vloge</option>
+        <option value="admin">Admin</option>
+        <option value="delavec">Delavec</option>
+        <option value="kupec">Kupec</option>
+        <option value="dostavljalec">Dostavljalec</option>
+      </select>
+      </div>
+    </div>
 
-
-                <button type="submit">
-                {editId ? "Posodobi korisnika" : "Dodaj korisnika"}
-                </button>
-           </form>
-
-
-      {message && <p>{message}</p>}
-
-      <table border="1">
-        <thead>
+  <div className="table-responsive">
+    <table className="table table-striped table-bordered table-hover align-middle">
+      <thead className="table-dark">
         <tr>
-            <th>ID</th>
-            <th>Ime</th>
-            <th>Telefon</th>
-            <th>Email</th>
-            <th>Naslov</th>
-            <th>Vloga</th>
-            <th>Akcije</th>
+          <th>ID</th>
+          <th>Ime</th>
+          <th>Telefon</th>
+          <th>Email</th>
+          <th>Naslov</th>
+          <th>Vloga</th>
+          <th>Akcije</th>
         </tr>
-        </thead>
+      </thead>
 
-        <tbody>
-        {korisnik.map((item) => (
-            <tr key={item.id}>
+      <tbody>
+        {korisnik.filter((item) =>filterVloga === "" || item.vloga === filterVloga).map((item) => (
+          <tr key={item.id}>
             <td>{item.id}</td>
             <td>{item.ime}</td>
             <td>{item.telefon}</td>
@@ -210,19 +232,24 @@ export default function Korisnik(){
             <td>{item.vloga}</td>
 
             <td>
-                <button onClick={() => handleEdit(item)}>
+              <button
+                className="btn btn-warning btn-sm me-2"
+                onClick={() => handleEdit(item)}>
                 Uredi
-                </button>
+              </button>
 
-                <button onClick={() => handleDelete(item.id)}>
+              <button
+                className="btn btn-danger btn-sm"
+                onClick={() => handleDelete(item.id)}>
                 Izbriši
-                </button>
+              </button>
             </td>
-            </tr>
+          </tr>
         ))}
-        </tbody>
-      </table>
-    </main>
+      </tbody>
+    </table>
+  </div>
+</main>
   );
 
 }

@@ -180,35 +180,49 @@ export default function Pregled() {
     };
 
     return(
-        <main>
-            <form onSubmit={handleSubmit}>
-            <div>
-                <label>Datum</label>
-                <input type="date" value={datum} onChange={(e) => setDatum(e.target.value)}/>
+    <main className="container mt-4">
+    <h1 className="mb-4">Pregled</h1>
+
+    <div className="card mb-4">
+        <div className="card-body">
+        <form onSubmit={handleSubmit}>
+            <div className="row">
+
+            <div className="col-md-6 mb-3">
+                <label className="form-label">Datum</label>
+                <input
+                className="form-control"
+                type="date"
+                value={datum}
+                onChange={(e) => setDatum(e.target.value)}/>
             </div>
 
-            <div>
-                <label>Diagnoza</label>
-                <input type="text" value={diagnoza} onChange={(e) => setDiagnoza(e.target.value)}/>
+            <div className="col-md-6 mb-3">
+                <label className="form-label">Diagnoza</label>
+                <input
+                className="form-control"
+                type="text"
+                value={diagnoza}
+                onChange={(e) => setDiagnoza(e.target.value)}/>
             </div>
 
-            <div>
-                <label>Stanje</label>
-                <input type="text" value={stanje} onChange={(e) => setStanje(e.target.value)}/>
+            <div className="col-md-6 mb-3">
+                <label className="form-label">Stanje</label>
+                <input
+                className="form-control"
+                type="text"
+                value={stanje}
+                onChange={(e) => setStanje(e.target.value)}/>
             </div>
 
-            <div>
-                <label>Opombe</label>
-                <textarea value={opombe} onChange={(e) => setOpombe(e.target.value)}/>
-            </div>
+            <div className="col-md-6 mb-3">
+                <label className="form-label">Perad</label>
 
-            <div>
-                <label>Perad</label>
-
-                <select value={peradId} onChange={(e) => setPeradId(e.target.value)}>
-                <option value="">
-                    Izberi perad
-                </option>
+                <select
+                className="form-select"
+                value={peradId}
+                onChange={(e) => setPeradId(e.target.value)}>
+                <option value="">Izberi perad</option>
 
                 {perad.map((item) => (
                     <option key={item.id} value={item.id}>
@@ -218,13 +232,14 @@ export default function Pregled() {
                 </select>
             </div>
 
-            <div>
-                <label>Korisnik</label>
+            <div className="col-md-6 mb-3">
+                <label className="form-label">Korisnik</label>
 
-                <select value={korisnikId} onChange={(e) =>setKorisnikId(e.target.value)}>
-                <option value="">
-                    Izberi korisnika
-                </option>
+                <select
+                className="form-select"
+                value={korisnikId}
+                onChange={(e) => setKorisnikId(e.target.value)}>
+                <option value="">Izberi korisnika</option>
 
                 {korisnik.map((item) => (
                     <option key={item.id} value={item.id}>
@@ -234,64 +249,85 @@ export default function Pregled() {
                 </select>
             </div>
 
-            <button type="submit">
-                {editId ? "Posodobi pregled" : "Dodaj pregled"}
+            <div className="col-12 mb-3">
+                <label className="form-label">Opombe</label>
+
+                <textarea
+                className="form-control"
+                rows="3"
+                value={opombe}
+                onChange={(e) => setOpombe(e.target.value)}/>
+            </div>
+
+            </div>
+
+            <button
+            type="submit"
+            className="btn btn-primary">
+            {editId ? "Posodobi pregled" : "Dodaj pregled"}
             </button>
-            </form>
+        </form>
+        </div>
+    </div>
 
-            {message && <p>{message}</p>}
+    {message && ( <div className="alert alert-info">
+        {message}
+        </div>
+    )}
 
-            <table border="1">
-            <thead>
-                <tr>
-                <th>ID</th>
-                <th>Datum</th>
-                <th>Diagnoza</th>
-                <th>Stanje</th>
-                <th>Opombe</th>
-                <th>Perad</th>
-                <th>Korisnik</th>
-                <th>Akcije</th>
-                </tr>
-            </thead>
+    <div className="table-responsive">
+        <table className="table table-striped table-bordered table-hover align-middle">
+        <thead className="table-dark">
+            <tr>
+            <th>ID</th>
+            <th>Datum</th>
+            <th>Diagnoza</th>
+            <th>Stanje</th>
+            <th>Opombe</th>
+            <th>Perad</th>
+            <th>Korisnik</th>
+            <th>Akcije</th>
+            </tr>
+        </thead>
 
-            <tbody>
-                {pregled.map((item) => (
-                <tr key={item.id}>
-                    <td>{item.id}</td>
+        <tbody>
+            {pregled.map((item) => (
+            <tr key={item.id}>
+                <td>{item.id}</td>
 
-                    <td>
-                    {item.datum ? item.datum.substring(0,10) : ""}
-                    </td>
+                <td>
+                {item.datum ? item.datum.substring(0, 10) : ""}
+                </td>
 
-                    <td>{item.diagnoza}</td>
+                <td>{item.diagnoza}</td>
 
-                    <td>{item.stanje}</td>
+                <td>{item.stanje}</td>
 
-                    <td>{item.opombe}</td>
+                <td>{item.opombe}</td>
 
-                    <td>
-                    {getPeradVrsta(item.perad_id)}
-                    </td>
+                <td>{getPeradVrsta(item.perad_id)}</td>
 
-                    <td>
-                    {getKorisnikIme(item.korisnik_id)}
-                    </td>
+                <td>{getKorisnikIme(item.korisnik_id)}</td>
 
-                    <td>
-                    <button onClick={() =>handleEdit(item)}>
-                        Uredi
-                    </button>
+                <td>
+                <button
+                    className="btn btn-warning btn-sm me-2"
+                    onClick={() => handleEdit(item)}>
+                    Uredi
+                </button>
 
-                    <button onClick={() =>handleDelete(item.id)}>
-                        Izbriši
-                    </button>
-                    </td>
-                </tr>
-                ))}
-            </tbody>
-            </table>
-        </main>
+                <button
+                    className="btn btn-danger btn-sm"
+                    onClick={() => handleDelete(item.id)}>
+                    Izbriši
+                </button>
+                </td>
+            </tr>
+            ))}
+        </tbody>
+        </table>
+    </div>
+    </main>
 
     )
 
