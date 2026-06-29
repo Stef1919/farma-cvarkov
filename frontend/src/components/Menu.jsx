@@ -24,7 +24,7 @@ export default function Menu() {
         <div className="navbar-nav mx-auto align-items-center">
 
           <Link className="nav-link" to="/dashboard">
-            Dashboard
+            Domov
           </Link>
 
           <Link className="nav-link" to="/perad">

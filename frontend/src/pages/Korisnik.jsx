@@ -4,14 +4,13 @@ import { API_URL } from "../config/api";
 export default function Korisnik(){
     const [korisnik, setKorisnik] = useState([]);
     const [message, setMessage] = useState("");
-
     const [ime, setIme] = useState("");
     const [telefon, setTelefon] = useState("");
     const [email, setEmail] = useState("");
     const [naslov, setNaslov] = useState("");
     const [vloga, setVloga] = useState("");
-
     const [editId, setEditId] = useState(null);
+    const [filterVloga, setFilterVloga] = useState("");
 
     const loadKorisnik = async () => {
         try {
@@ -192,6 +191,21 @@ export default function Korisnik(){
       {message}
     </div>
   )}
+    <div className="row mb-3">
+    <div className="col-md-4">
+      <select
+        className="form-select"
+        value={filterVloga}
+        onChange={(e) => setFilterVloga(e.target.value)}>
+
+        <option value="">Vse vloge</option>
+        <option value="admin">Admin</option>
+        <option value="delavec">Delavec</option>
+        <option value="kupec">Kupec</option>
+        <option value="dostavljalec">Dostavljalec</option>
+      </select>
+      </div>
+    </div>
 
   <div className="table-responsive">
     <table className="table table-striped table-bordered table-hover align-middle">
@@ -208,7 +222,7 @@ export default function Korisnik(){
       </thead>
 
       <tbody>
-        {korisnik.map((item) => (
+        {korisnik.filter((item) =>filterVloga === "" || item.vloga === filterVloga).map((item) => (
           <tr key={item.id}>
             <td>{item.id}</td>
             <td>{item.ime}</td>
